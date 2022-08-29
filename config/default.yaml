@@ -1,0 +1,46 @@
+metadata:
+    train_path: "metadata/ser_train_multiple_languages.csv"
+    dev_path: "metadata/ser_dev_coraa.csv"
+    test_path: "metadata/test_ser_coraa.csv"
+
+    preloaded_train: "preloaded_data/train"
+    preloaded_val: "preloaded_data/val"
+    preloaded_test: "preloaded_data/test"
+
+    audio_path_column: "wav_file"
+    label_column: "label"
+
+fc_model:
+    input_size: 1024
+    num_classes: 3
+
+genetic_algorithm:
+    minibatch_size: 1024
+    stdev_init: 1.0
+    population_size: 500
+    generations: 50
+
+data:
+    base_dir: ""
+    target_sampling_rate: 16000
+    apply_dbfs_norm: true
+    target_dbfs: -31.187887972911266
+    pad_audios: true
+
+train:
+    model_checkpoint: "facebook/wav2vec2-xls-r-300m"
+    # model_checkpoint: "alefiury/wav2vec2-xls-r-300m-pt-br-spontaneous-speech-emotion-recognition"
+    weights_output_path: 'checkpoints/${logging.run_name}/train'
+    seed: 42
+
+    num_experiments: 30
+
+test:
+    model_checkpoint: "alefiury/wav2vec2-xls-r-300m-pt-br-spontaneous-speech-emotion-recognition"
+    test_base_dir: "data/test"
+    output_path: "results/pred.csv"
+    batch_size: 4
+    num_workers: 8
+
+logging:
+    run_name: "wav2vec2-xls-r-300m-pt-br-spontaneous-speech-emotion-recognition"
