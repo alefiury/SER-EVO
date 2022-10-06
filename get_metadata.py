@@ -239,39 +239,39 @@ def main():
         help='Path to save metadata'
     )
 
-    # args = parser.parse_args()
+    args = parser.parse_args()
 
-    # os.makedirs(os.path.dirname(args.metada_train_data_output_data), exist_ok=True)
-    # os.makedirs(os.path.dirname(args.metada_dev_data_output_data), exist_ok=True)
+    os.makedirs(os.path.dirname(args.metada_train_data_output_data), exist_ok=True)
+    os.makedirs(os.path.dirname(args.metada_dev_data_output_data), exist_ok=True)
 
-    # coraa_ser_base_dir = os.path.join(args.data_base_dir, 'train', 'CORAA_SER')
-    # baved_base_dir = os.path.join(args.data_base_dir, 'train', 'BAVED')
-    # emovo_base_dir = os.path.join(args.data_base_dir, 'train', 'EMOVO')
-    # ravdess_base_dir = os.path.join(args.data_base_dir, 'train', 'RAVDESS')
+    coraa_ser_base_dir = os.path.join(args.data_base_dir, 'train', 'CORAA_SER')
+    baved_base_dir = os.path.join(args.data_base_dir, 'train', 'BAVED')
+    emovo_base_dir = os.path.join(args.data_base_dir, 'train', 'EMOVO')
+    ravdess_base_dir = os.path.join(args.data_base_dir, 'train', 'RAVDESS')
 
 
-    # baved_audio_paths = glob.glob(os.path.join(baved_base_dir, '**', '*.wav'), recursive=True)
-    # emovo_audio_paths = glob.glob(os.path.join(emovo_base_dir, '**', '*.wav'), recursive=True)
-    # ravdess_audio_paths = glob.glob(os.path.join(ravdess_base_dir, '**', '*.wav'), recursive=True)
-    # coraa_train_df, coraa_dev_df = coraa_dataset(coraa_ser_base_dir, args.data_base_dir)
+    baved_audio_paths = glob.glob(os.path.join(baved_base_dir, '**', '*.wav'), recursive=True)
+    emovo_audio_paths = glob.glob(os.path.join(emovo_base_dir, '**', '*.wav'), recursive=True)
+    ravdess_audio_paths = glob.glob(os.path.join(ravdess_base_dir, '**', '*.wav'), recursive=True)
+    coraa_train_df, coraa_dev_df = coraa_dataset(coraa_ser_base_dir, args.data_base_dir)
 
-    # baved_df = baved_dataset(baved_audio_paths)
-    # emovo_df = emovo_dataset(emovo_audio_paths)
-    # ravdess_df = ravdess_dataset(ravdess_audio_paths)
+    baved_df = baved_dataset(baved_audio_paths)
+    emovo_df = emovo_dataset(emovo_audio_paths)
+    ravdess_df = ravdess_dataset(ravdess_audio_paths)
 
-    # s_train = pd.concat(
-    #     [
-    #         coraa_train_df[['wav_file', 'label']],
-    #         baved_df[['wav_file', 'label']],
-    #         emovo_df[['wav_file', 'label']],
-    #         ravdess_df[['wav_file', 'label']]
-    #     ]
-    # )
+    s_train = pd.concat(
+        [
+            coraa_train_df[['wav_file', 'label']],
+            baved_df[['wav_file', 'label']],
+            emovo_df[['wav_file', 'label']],
+            ravdess_df[['wav_file', 'label']]
+        ]
+    )
 
-    # assert s_train.shape[0] == coraa_train_df.shape[0] + baved_df.shape[0] + emovo_df.shape[0] + ravdess_df.shape[0]
+    assert s_train.shape[0] == coraa_train_df.shape[0] + baved_df.shape[0] + emovo_df.shape[0] + ravdess_df.shape[0]
 
-    # s_train.to_csv(args.metada_train_data_output_data, index=False)
-    # coraa_dev_df.to_csv(args.metada_dev_data_output_data, index=False)
+    s_train.to_csv(args.metada_train_data_output_data, index=False)
+    coraa_dev_df.to_csv(args.metada_dev_data_output_data, index=False)
 
     adapt_test_metadata_coraa("metadata/test_ser_metadata.csv")
 
